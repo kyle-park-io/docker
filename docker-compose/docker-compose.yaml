@@ -1,0 +1,27 @@
+version: '3'
+services:
+  client:
+    build:
+      context: /home/kyle/code/kyle-node-test/grpc-web
+      dockerfile: /home/kyle/code/kyle-node-test/grpc-web/Dockerfile
+    image: grpcweb/client
+    depends_on:
+      - envoy
+    ports:
+      - '7070:7070'
+  kyle-chat-server:
+    build:
+      context: /home/kyle/code/grpc/chat/server
+      dockerfile: /home/kyle/code/grpc/chat/server/Dockerfile
+    image: grpcweb/kyle-chat-server
+    ports:
+      - '50051:50051'
+  envoy:
+    build:
+      context: /home/kyle/code/envoy/envoy
+      dockerfile: /home/kyle/code/envoy/envoy/Dockerfile
+    image: grpcweb/envoy
+    ports:
+      - '8080:8080'
+    links:
+      - kyle-chat-server
