@@ -1,34 +1,34 @@
 version: '3'
 services:
-  chat-node-client:
+  chat-app-client:
     build:
       context: /home/kyle/code/kyle-node-test/grpc-web
       dockerfile: /home/kyle/code/kyle-node-test/grpc-web/Dockerfile.prod
       args:
         PROGRAM_VER: '0.0.1'
     platform: linux/amd64
-    image: me-west1-docker.pkg.dev/kyle-server-402706/kyle-registry/chat-node-client:0.0.1
+    image: me-west1-docker.pkg.dev/kyle-server-402706/kyle-registry/chat-app-client:0.0.1
     ports:
       - '7070:7070'
-  chat-node-server:
+  chat-app-server:
     build:
       context: /home/kyle/code/grpc/chat/server
       dockerfile: /home/kyle/code/grpc/chat/server/Dockerfile
       args:
         PROGRAM_VER: '0.0.1'
     platform: linux/amd64
-    image: me-west1-docker.pkg.dev/kyle-server-402706/kyle-registry/chat-node-server:0.0.1
+    image: me-west1-docker.pkg.dev/kyle-server-402706/kyle-registry/chat-app-server:0.0.1
     ports:
       - '50051:50051'
-  chat-node-envoy:
+  chat-app-envoy:
     build:
       context: /home/kyle/code/envoy/envoy
       dockerfile: /home/kyle/code/envoy/envoy/Dockerfile.prod
       args:
         PROGRAM_VER: '0.0.1'
     platform: linux/amd64
-    image: me-west1-docker.pkg.dev/kyle-server-402706/kyle-registry/chat-node-envoy:0.0.1
+    image: me-west1-docker.pkg.dev/kyle-server-402706/kyle-registry/chat-app-envoy:0.0.1
     ports:
       - '8080:8080'
     links:
-      - chat-node-server
+      - chat-app-server

@@ -5,7 +5,7 @@ docker compose -f docker-compose.prod.yaml build --no-cache
 PROJECT_ID=kyle-server-402706
 REPOSITORY=kyle-registry
 LOCATION=me-west1
-IMAGE=(chat-node-client chat-node-server chat-node-envoy)
+IMAGE=(chat-app-client chat-app-server chat-app-envoy)
 TAG=0.0.1
 TAG_LATEST=latest
 
@@ -24,7 +24,7 @@ for i in "${!IMAGE[@]}"; do
   gcloud artifacts docker images delete $LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/${IMAGE[$i]}@$DIGEST --quiet || true
 
   # push 0.0.1
-  # IMAGE_TAG=me-west1-docker.pkg.dev/kyle-server-402706/kyle-registry/chat-node-client:0.0.1
+  # IMAGE_TAG=me-west1-docker.pkg.dev/kyle-server-402706/kyle-registry/chat-app-client:0.0.1
   IMAGE_TAG=$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/${IMAGE[$i]}:$TAG
   docker push $IMAGE_TAG
 
