@@ -1,3 +1,4 @@
+yarn
 yarn init -y
 yarn
 yarn upgrade
